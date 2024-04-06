@@ -108,7 +108,7 @@ async def main_one_message():
         cards = [get_data_sb(url_sd), get_data_bg(url_bg)]
         for card in cards:
             await send_messages_to_chat(format_order_message_one(*card))
-        await asyncio.sleep(60 * 60 * 12)
+        # await asyncio.sleep(60 * 60 * 12)
 
 
 def run_telegram_one_message():
