@@ -9,10 +9,13 @@ import sys
 sys.path.append(str(Path.cwd()))
 sys.path.append(str(Path.cwd().parent))
 
-from data.database import SQLite_operations
+from database import SQLite_operations
 import configparser
 from datetime import datetime
 import pytz
+
+from SibDroid.main import get_data as get_data_sb
+from BigGeek.main import get_data as get_data_bg
 
 # Достать API_TOKEN из config.ini
 config = configparser.ConfigParser()
@@ -73,8 +76,6 @@ async def send_messages_to_chat(message):
 
 
 async def main():
-    # start_time = '2024-02-11 18:14:50'
-
     start_time = datetime.now(krasnoyarsk_tz).strftime("%Y-%m-%d %H:%M:%S")
     while True:
         messages = get_messages(start_time)
@@ -87,10 +88,33 @@ async def main():
 
 
 def run_telegram_wrapper():
-    # Настройка логирования
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
 
 
+def format_order_message_one(title, price, link, ):
+    message = f"📝 Название: {title}  -  💰{price}\n\n" + \
+              f"🔗 Ссылка: {link}\n"
+    return message
+
+
+async def main_one_message():
+    while True:
+        url_sd = 'https://krasnoyarsk.sibdroid.ru/catalog/noutbuk_apple_macbook_pro_16_2023_m3_pro_18gb_512gb_chernyy_kosmos_mrw13/characteristics.html'
+        # title_1, price_1 = get_data_sb(url_sd)
+        url_bg = 'https://biggeek.ru/products/apple-macbook-pro-16-mrw43-silver-m3-pro-12-core-gpu-18-core-18gb-512gb'
+        # title, price = get_data_bg(url_bg)
+
+        cards = [get_data_sb(url_sd), get_data_bg(url_bg)]
+        for card in cards:
+            await send_messages_to_chat(format_order_message_one(*card))
+        await asyncio.sleep(60 * 60 * 12)
+
+
+def run_telegram_one_message():
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main_one_message())
+
+
 if __name__ == '__main__':
-    run_telegram_wrapper()
+    run_telegram_one_message()
