@@ -31,6 +31,12 @@ krasnoyarsk_tz = pytz.timezone('Asia/Krasnoyarsk')
 # Создаем экземпляр бота
 bot = Bot(token=API_TOKEN)
 
+#Конфигурация logger
+logger.add("logfile.log", format="{time} {level} {message}",
+           level="DEBUG", rotation="100 MB")
+
+
+
 
 def get_messages(start_time):
     current_time = datetime.now(krasnoyarsk_tz).strftime("%Y-%m-%d %H:%M:%S")
