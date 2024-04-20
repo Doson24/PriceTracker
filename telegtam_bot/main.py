@@ -106,12 +106,16 @@ def format_order_message_one(title, price, link, ):
 
 async def main_one_message():
     # while True:
-    url_sd = 'https://krasnoyarsk.sibdroid.ru/catalog/noutbuk_apple_macbook_pro_16_2023_m3_pro_18gb_512gb_chernyy_kosmos_mrw13/characteristics.html'
+    url_sd_1 = 'https://krasnoyarsk.sibdroid.ru/catalog/noutbuk_apple_macbook_pro_16_2023_m3_pro_18gb_512gb_chernyy_kosmos_mrw13/characteristics.html'
+    url_sd_2 = 'https://krasnoyarsk.sibdroid.ru/catalog/noutbuk_apple_macbook_pro_14_2023_m3_pro_18gb_512gb_chernyy_kosmos_mrx33/characteristics.html'
+
     # title_1, price_1 = get_data_sb(url_sd)
     url_bg = 'https://biggeek.ru/products/apple-macbook-pro-16-mrw43-silver-m3-pro-12-core-gpu-18-core-18gb-512gb'
     # title, price = get_data_bg(url_bg)
 
-    cards = [get_data_sb(url_sd), get_data_bg(url_bg)]
+    cards = [get_data_sb(url_sd_1),
+             get_data_sb(url_sd_2),
+             get_data_bg(url_bg)]
     for card in cards:
         await send_messages_to_chat(format_order_message_one(*card))
     # await asyncio.sleep(60 * 60 * 12)
