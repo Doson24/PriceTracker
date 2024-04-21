@@ -111,7 +111,7 @@ async def main_one_message():
 
     # title_1, price_1 = get_data_sb(url_sd)
     url_bg_1 = 'https://biggeek.ru/products/apple-macbook-pro-16-mrw43-silver-m3-pro-12-core-gpu-18-core-18gb-512gb'
-    url_bg_2 = 'https://biggeek.ru/products/apple-macbook-pro-16-mrw43-silver-m3-pro-12-core-gpu-18-core-18gb-512gb'
+    url_bg_2 = 'https://biggeek.ru/products/apple-macbook-pro-14-mrx63-silver-m3-pro-11-core-gpu-14-core-18gb-512gb'
 
     # title, price = get_data_bg(url_bg)
 
