@@ -88,8 +88,10 @@ async def main():
         if messages:
             start_time = datetime.now(krasnoyarsk_tz).strftime("%Y-%m-%d %H:%M:%S")
         for message in messages:
-            format_message = format_order_message(*message)
-            await send_messages_to_chat(format_message)
+            title, link, description, date_create, price, high_price = message
+            if price and high_price:
+                format_message = format_order_message(*message)
+                await send_messages_to_chat(format_message)
         await asyncio.sleep(15)
 
 
