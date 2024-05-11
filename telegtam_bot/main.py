@@ -88,10 +88,8 @@ async def main():
         if messages:
             start_time = datetime.now(krasnoyarsk_tz).strftime("%Y-%m-%d %H:%M:%S")
         for message in messages:
-            title, link, description, date_create, price, high_price = message
-            if price and high_price:
-                format_message = format_order_message(*message)
-                await send_messages_to_chat(format_message)
+            format_message = format_order_message(*message)
+            await send_messages_to_chat(format_message)
         await asyncio.sleep(15)
 
 
@@ -123,7 +121,9 @@ async def main_one_message():
              get_data_bg(url_bg_2)
              ]
     for card in cards:
-        await send_messages_to_chat(format_order_message_one(*card))
+        title, price, link = card
+        if 'Нет в наличии' not in price:
+            await send_messages_to_chat(format_order_message_one(*card))
     # await asyncio.sleep(60 * 60 * 12)
 
 
