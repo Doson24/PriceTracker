@@ -33,9 +33,7 @@ bot = Bot(token=API_TOKEN)
 
 #Конфигурация logger
 logger.add("logfile.log", format="{time} {level} {message}",
-           level="DEBUG", rotation="100 MB")
-
-
+           level="DEBUG", rotation="500 MB")
 
 
 def get_messages(start_time):
@@ -72,19 +70,10 @@ def format_order_message(title, link, description, date_create,
     return message
 
 
-async def send_messages_to_chat(message):
-    try:
-        await bot.send_message(CHAT_ID, message, disable_notification=True, request_timeout=30)
-        title = message.split('\n\n')[0]
-        logger.info(f"Сообщение успешно отправлено в чат {title}")
-    except Exception as e:
-        logger.error(f"Ошибка при отправке сообщения в чат: {e}")
-
-
 async def main():
     start_time = datetime.now(krasnoyarsk_tz).strftime("%Y-%m-%d %H:%M:%S")
     while True:
-        messages = get_messages(start_time)
+        messages = await get_messages(start_time)
         if messages:
             start_time = datetime.now(krasnoyarsk_tz).strftime("%Y-%m-%d %H:%M:%S")
         for message in messages:
@@ -98,6 +87,15 @@ def run_telegram_wrapper():
     loop.run_until_complete(main())
 
 
+async def send_messages_to_chat(message):
+    try:
+        await bot.send_message(CHAT_ID, message, disable_notification=True, request_timeout=30)
+        title = message.split('\n\n')[0]
+        logger.info(f"Сообщение успешно отправлено в чат {title}")
+    except Exception as e:
+        logger.error(f"Ошибка при отправке сообщения в чат: {e}")
+
+
 def format_order_message_one(title, price, link, ):
     message = f"📝 Название: {title}  -  💰{price}\n\n" + \
               f"🔗 Ссылка: {link}\n"
@@ -105,6 +103,10 @@ def format_order_message_one(title, price, link, ):
 
 
 async def main_one_message():
+    """
+    Без БД SQLite
+    """
+
     # while True:
     url_sd_1 = 'https://krasnoyarsk.sibdroid.ru/catalog/noutbuk_apple_macbook_pro_16_2023_m3_pro_18gb_512gb_chernyy_kosmos_mrw13/characteristics.html'
     url_sd_2 = 'https://krasnoyarsk.sibdroid.ru/catalog/noutbuk_apple_macbook_pro_14_2023_m3_pro_18gb_512gb_chernyy_kosmos_mrx33/characteristics.html'
