@@ -8,6 +8,7 @@ from aiogram import Bot
 from loguru import logger
 
 from database import SQLite_operations
+from Aleado.main import get_data as get_data_aleado
 
 # Достать API_TOKEN из config.ini
 config = configparser.ConfigParser()
@@ -78,6 +79,7 @@ async def send_messages_to_chat(message):
 
 async def main():
     start_time = datetime.now(krasnoyarsk_tz).strftime("%Y-%m-%d %H:%M:%S")
+    get_data_aleado()
     messages = get_messages(start_time)
     if messages:
         start_time = datetime.now(krasnoyarsk_tz).strftime("%Y-%m-%d %H:%M:%S")
