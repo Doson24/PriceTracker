@@ -100,4 +100,7 @@ def run_telegram_wrapper():
 
 
 if __name__ == '__main__':
-    run_telegram_wrapper()
+    try:
+        run_telegram_wrapper()
+    except Exception as ex:
+        logger.error(f"Ошибка: {ex}")
