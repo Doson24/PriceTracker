@@ -1,5 +1,6 @@
 import asyncio
 import configparser
+import sys
 from datetime import datetime
 from pathlib import Path
 import pytz
@@ -7,7 +8,10 @@ import pytz
 from aiogram import Bot
 from loguru import logger
 
-from ..database import SQLite_operations
+sys.path.append(str(Path.cwd()))
+sys.path.append(str(Path.cwd().parent))
+
+from database import SQLite_operations
 from Aleado.main import get_data as get_data_aleado
 
 #Конфигурация logger
