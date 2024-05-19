@@ -58,12 +58,11 @@ def format_order_message(bid_number, link, auction, photo, company, model, grade
                           displacement, transmission, color, model_type, start_price, end_price, result, scores, sended):
     message = f"🔢 {bid_number}\n" \
                 f"🔨 Аукцион: {auction}\n" \
-                f"🏢 Компания: {company}\n" \
+                f"🏢 Марка: {company}\n" \
                 f"🚗 Модель: {model}\n" \
                 f'🔧 Модификация: {grade}\n' \
                 f"📅 Год: {year}\n" \
                 f"🛣️ Пробег: {mileage}\n" \
-                f"🔍 Осмотр: {inspection}\n" \
                 f"📏 Объем: {displacement}\n" \
                 f'🔀 Коробка: {transmission}\n' \
                 f'🎨 Цвет: {color}\n' \
