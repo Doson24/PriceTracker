@@ -10,6 +10,10 @@ from loguru import logger
 from database import SQLite_operations
 from Aleado.main import get_data as get_data_aleado
 
+#Конфигурация logger
+logger.add("logfile.log", format="{time} {level} {message}",
+           level="INFO", rotation="500 MB")
+
 # Достать API_TOKEN из config.ini
 config = configparser.ConfigParser()
 dir_conf = Path.cwd()
