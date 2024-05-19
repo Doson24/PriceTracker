@@ -7,7 +7,7 @@ import pytz
 from aiogram import Bot
 from loguru import logger
 
-from database import SQLite_operations
+from ..database import SQLite_operations
 from Aleado.main import get_data as get_data_aleado
 
 #Конфигурация logger
