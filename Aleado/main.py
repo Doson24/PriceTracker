@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 
 import requests
@@ -8,15 +9,18 @@ from loguru import logger
 
 from database import SQLite_operations
 
+# Текущее время в формате timestamp
+time_update = int(time.time())
+
 cookies = {
     '_gid': 'GA1.2.1845426464.1716100025',
     '_ga_SHV75CYBKJ': 'GS1.1.1716100024.5.0.1716100026.0.0.0',
-    'SU_Session': 'a5a4a49ad612c871c80e8669ff45f7a5',
-    'PHPSESSID': 'e6cckv6mq919qfkc3taji98q0i',
-    'sess_update': '1716208489',
+    'SU_Session': '2cbd8cbc79a9955da2a127f371ff6d71',
+    'PHPSESSID': 'kb4l3kqke1ig1f3m5u6e2h82oj',
+    'sess_update': '1716209736',
     '_gat_gtag_UA_37848788_1': '1',
+    '_ga_K7C400WDBC': 'GS1.1.1716208453.24.1.1716209737.0.0.0',
     '_ga': 'GA1.1.1791656277.1711341310',
-    '_ga_K7C400WDBC': 'GS1.1.1716208453.24.1.1716208621.0.0.0',
 }
 
 headers = {
@@ -122,7 +126,10 @@ def get_card(soup, table_rows):
             bid_number = soup.find(id=f'bid_number_{num}').text.strip()
         except:
             continue
-        link = 'https://auctions.aleado.ru' + soup.select_one(f'#photo_{num} a')['href']
+        try:
+            link = 'https://auctions.aleado.ru' + soup.select_one(f'#photo_{num} a')['href']
+        except:
+            continue
         auction = soup.find(id=f'auction_{num}').text.strip()
         photo = soup.select_one(f'#photo_{num} a img')['load_src']
         company = soup.find(id=f'company_{num}').text.strip()
